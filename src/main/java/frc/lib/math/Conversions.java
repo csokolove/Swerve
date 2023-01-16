@@ -3,20 +3,20 @@ package frc.lib.math;
 public class Conversions {
 
     /**
-     * @param positionCounts CANCoder Position Counts
-     * @param gearRatio Gear Ratio between CANCoder and Mechanism
+     * @param positionCounts SRX Mag Encoder Position Counts
+     * @param gearRatio Gear Ratio between SRX Mag Encoder and Mechanism
      * @return Degrees of Rotation of Mechanism
      */
-    public static double CANcoderToDegrees(double positionCounts, double gearRatio) {
+    public static double srxMagToDegrees(double positionCounts, double gearRatio) {
         return positionCounts * (360.0 / (gearRatio * 4096.0));
     }
 
     /**
      * @param degrees Degrees of rotation of Mechanism
-     * @param gearRatio Gear Ratio between CANCoder and Mechanism
-     * @return CANCoder Position Counts
+     * @param gearRatio Gear Ratio between SRX Mag Encoder and Mechanism
+     * @return SRX Mag Encoder Position Counts
      */
-    public static double degreesToCANcoder(double degrees, double gearRatio) {
+    public static double degreesToSrxMag(double degrees, double gearRatio) {
         return degrees / (360.0 / (gearRatio * 4096.0));
     }
 
