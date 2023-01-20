@@ -29,7 +29,7 @@ public class RobotContainer {
     // private final JoystickButton robotCentric = new JoystickButton(driver, 0);
 
     /* Subsystems */
-    private final Swerve s_Swerve = new Swerve();
+    public final Swerve s_Swerve = new Swerve();
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -37,9 +37,9 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
-                () -> -xb.getRightY(), 
-                () -> -xb.getRightX(), 
-                () -> -xb.getLeftX(), 
+                () -> xb.getRightY(), 
+                () -> xb.getRightX(), 
+                () -> xb.getLeftX(), 
                 () -> true//robotCentric.getAsBoolean()
             )
         );
