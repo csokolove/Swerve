@@ -93,7 +93,7 @@ public final class Constants {
             public static final int driveMotorID = 10;
             public static final int angleMotorID = 15;
             public static final int srxMagId = 0;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(0.0);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-68); // TODO: tune all angle offsets
             public static final double encoderOffset = 0.522;
             public static final boolean encoderReversed = false;
             public static final SwerveModuleConstants constants = 
@@ -105,7 +105,7 @@ public final class Constants {
             public static final int driveMotorID = 11;
             public static final int angleMotorID = 16;
             public static final int srxMagId = 1;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(0.0);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-214.6);
             public static final double encoderOffset = 0.089;
             public static final boolean encoderReversed = false;
             public static final SwerveModuleConstants constants = 
@@ -117,7 +117,7 @@ public final class Constants {
             public static final int driveMotorID = 12;
             public static final int angleMotorID = 17;
             public static final int srxMagId = 2;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(0.0);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(80.4);
             public static final double encoderOffset = 0.968;
             public static final boolean encoderReversed = false;
             public static final SwerveModuleConstants constants = 
@@ -129,7 +129,7 @@ public final class Constants {
             public static final int driveMotorID = 13;
             public static final int angleMotorID = 18;
             public static final int srxMagId = 3;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(0.0);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-3.8);
             public static final double encoderOffset = 0.490;
             public static final boolean encoderReversed = false;
             public static final SwerveModuleConstants constants = 

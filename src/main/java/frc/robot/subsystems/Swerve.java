@@ -54,7 +54,6 @@ public class Swerve extends SubsystemBase {
                                     rotation)
                                 );
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
-        System.out.println(rotation);
         for(SwerveModule mod : mSwerveMods){
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
@@ -112,7 +111,8 @@ public class Swerve extends SubsystemBase {
         swerveOdometry.update(getYaw(), getModulePositions());  
 
         for(SwerveModule mod : mSwerveMods){
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " SRX Mag Encoder", mod.angleEncoder.getAbsolutePosition()/*mod.getSrxMagEncoder().getDegrees()*/);
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " SRX Mag Encoder", mod.getSrxMagEncoder().getDegrees());
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " SRXAbsolute", mod.angleEncoder.getAbsolutePosition());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
         }

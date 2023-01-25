@@ -4,6 +4,8 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.lib.util.AbsoluteEncoder;
 import frc.lib.math.Conversions;
 import frc.lib.util.CTREModuleState;
@@ -21,7 +23,7 @@ public class SwerveModule {
 
     private TalonFX mAngleMotor;
     private TalonFX mDriveMotor;
-    public AbsoluteEncoder angleEncoder;
+    public DutyCycleEncoder angleEncoder;
 
     SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Swerve.driveKS, Constants.Swerve.driveKV, Constants.Swerve.driveKA);
 
@@ -31,8 +33,10 @@ public class SwerveModule {
         this.encoderOffset = moduleConstants.encoderOffset;
         
         /* Angle Encoder Config */
-        angleEncoder = new AbsoluteEncoder(moduleConstants.srxMagId, moduleConstants.encoderOffset, moduleConstants.encoderReversed);
+        // angleEncoder = new AbsoluteEncoder(moduleConstants.srxMagId, moduleConstants.encoderOffset, moduleConstants.encoderReversed);
+        angleEncoder = new DutyCycleEncoder(moduleConstants.srxMagId);
 
+        angleEncoder.setDutyCycleRange(1.0/4096.0, 4095.0/4096.0);
         angleEncoder.setPositionOffset(encoderOffset);
 
         /* Angle Motor Config */
@@ -65,7 +69,7 @@ public class SwerveModule {
     }
 
     private void setAngle(SwerveModuleState desiredState){
-        Rotation2d angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.Swerve.maxSpeed * 0.01)) ? lastAngle : desiredState.angle; //Prevent rotating module if speed is less then 1%. Prevents Jittering.
+        Rotation2d angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.Swerve.maxSpeed * 0.1)) ? lastAngle : desiredState.angle; //Prevent rotating module if speed is less then 1%. Prevents Jittering.
         
         mAngleMotor.set(ControlMode.Position, Conversions.degreesToFalcon(angle.getDegrees(), Constants.Swerve.angleGearRatio));
         lastAngle = angle;
@@ -78,13 +82,15 @@ public class SwerveModule {
     }
 
     public Rotation2d getSrxMagEncoder() {
-        return Rotation2d.fromDegrees(angleEncoder.getAbsolutePosition());
+        return Rotation2d.fromDegrees(Conversions.degreesToSrxMag(angleEncoder.getAbsolutePosition(), Constants.Swerve.angleGearRatio));
         // return Rotation2d.fromRadians(angleEncoder.getValue());
     }
 
     public void resetToAbsolute(){
-        double absolutePosition = Conversions.degreesToFalcon(angleEncoder.getAbsolutePosition() - angleOffset.getDegrees(), Constants.Swerve.angleGearRatio);
+        double absolutePosition = Conversions.degreesToFalcon(getSrxMagEncoder().getDegrees() - angleOffset.getDegrees(), Constants.Swerve.angleGearRatio);
         mAngleMotor.setSelectedSensorPosition(absolutePosition);
+        SmartDashboard.putNumber("Mod " + moduleNumber + " absolute", Conversions.falconToDegrees(absolutePosition, Constants.Swerve.angleGearRatio));
+        // mAngleMotor.set(ControlMode.Position, absolutePosition);
         // angleEncoder.setPositionOffset(encoderOffset);
     }
 

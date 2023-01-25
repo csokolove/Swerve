@@ -36,18 +36,8 @@ public class AbsoluteEncoder extends DutyCycleEncoder {
 
     double angle;
 
-    private void toRadians() {
-        angle = Math.toRadians(getAbsolutePosition());
-    }
-
-    private void makeNegative() {
-        angle *= (encoderReversed ? -1.0 : 1.0);
-    }
-
     public double getValue() {
-        angle = Math.toRadians(getAbsolutePosition()); //* (encoderReversed ? -1.0 : 1.0);
-        // toRadians();
-        // makeNegative();
+        angle = getAbsolutePosition() * (encoderReversed ? -1.0 : 1.0);
 
         return angle;
     }
