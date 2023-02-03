@@ -19,7 +19,7 @@ public class RobotContainer {
     private final CommandXboxController xb = new CommandXboxController(0);
 
     /* Subsystems */
-    public final Swerve s_Swerve = new Swerve();
+    private final Swerve s_Swerve = new Swerve();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
